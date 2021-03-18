@@ -5,12 +5,27 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+        <script>
+			function analyze() {
+				let headers = new Headers();
+
+				headers.append("Content-Type", "application/json");
+
+				fetch("https://ricardosalas2-exhausted-dingo-kl.mybluemix.net/ricardo-salas", {
+					method: "POST",
+					headers: headers,
+					body: JSON.stringify({
+						text: document.querySelector("#toAnalyze").value,
+					}),
+				}).then((response) => response.text()).then((res) => (document.querySelector("#tone").innerHTML = res))
+				    .catch((error) => (document.querySelector("#tone").innerHTML = error));
+			}
+		</script>
 	</head>
 	<body>
-        <input type="text" id="input">
+        <input type="text" id="toAnalyze">
+		<button onclick="analyze()">Analyze tone</button>
 		<br><br><br>
-		<button onclick="myFunction()">Analyze tone</button>
-		<br><br><br>
-        <input type="text" id="result">
+        <input type="text" id="tone">
 	</body>
 </html>
